@@ -11,6 +11,7 @@
                 strtoupper($_POST['source']),
                 gmdate('Y-m-d'), 
                 $_POST['time'],
+                $_POST['entity'],
                 $_POST['triggerComment']);
    $fp = fopen('spots.csv', 'a+');
    fputcsv($fp, $row);
