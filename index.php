@@ -1,5 +1,6 @@
 <?php
 
+  
   function readCSV($csvFile){
       $file_handle = fopen($csvFile, 'r');
       while (!feof($file_handle) ) {
@@ -79,9 +80,18 @@ th {
     background-color: #d2d5db;
 }
 </style>';
+  $ini_file = "alert.ini";
+  if (file_exists($ini_file) {
+    $ini = parse_ini_file($ini_file);
+  }
+  else {
+    $ini["page_header"]= "";
+  }
+  
+
   echo '</head>';
   echo '<body>';
-  echo '<h2>NEEDED SPOTS FROM HAM-ALERT</h2>';
+  echo "<h2>{$page_header}</h2>";
   $rows = readCSV('spots.csv');
   //printRawTable($rows);
   printHtmlTable($rows);
