@@ -17,13 +17,13 @@
     $n = 0;
     $max_lines = 20;
     echo '<pre>';
-    printf("%-13s %-13s %10s  %-8s %-5s %-12s %-12s %-16s\n", 
-           "DE", "DX", "FREQ", "MODE", "UTC", "DATE", "SOURCE", "ENTITY");
+    printf("%-13s %-13s %10s  %-8s %-5s %-12s %-12s %-16s %-16s\n", 
+           "DE", "DX", "FREQ", "MODE", "UTC", "DATE", "SOURCE", "TRIGGER", "ENTITY");
     printf("-----------------------------------------------------------------------------------------\n");
     foreach (array_reverse($rows) as $row) {
       if (strlen($row[0])> 0) {
         printf("%-13s %-13s %10.1f  %-8s %-5s %-12s %-12s %-16s\n", 
-              $row[0], $row[1], $row[2], $row[3], $row[6], $row[5], $row[4], $row[7]);
+              $row[0], $row[1], $row[2], $row[3], $row[6], $row[5], $row[4], $row[8], $row[7]);
         $n++;
         if ($n >= $max_lines) {
           break;
@@ -33,12 +33,11 @@
     echo '</pre>';          
   }
   
-  function printHtmlTable($rows) {
+  function printHtmlTable($rows, $max_lines) {
     $n = 0;
-    $max_lines = 20; 
     printf('<table>');
     printf('<tr><th>DE</th> <th>DX</th> <th>FREQ</th> <th>MODE</th> 
-                <th>UTC</th> <th>DATE</th> <th>SOURCE</th> <th>ENTITY</th> </tr>');
+                <th>UTC</th> <th>DATE</th> <th>SOURCE</th> <th>TRIGGER</th> <th>ENTITY</th> </tr>');
     foreach (array_reverse($rows) as $row) {
       if (strlen($row[0])> 0) {
         printf("<tr><td>%-13s</td> 
@@ -48,8 +47,9 @@
                     <td>%-5s</td>
                     <td>%-12s</td>
                     <td>%-12s</td>
+                    <td>%-16s</td>              
                     <td>%-16s</td></tr>\n", 
-              $row[0], $row[1], $row[1], $row[2], $row[3], $row[6], $row[5], $row[4], $row[7]);
+              $row[0], $row[1], $row[1], $row[2], $row[3], $row[6], $row[5], $row[4], $row[8], $row[7]);
         
         $n++;
         if ($n >= $max_lines) {
@@ -80,23 +80,22 @@ th {
     background-color: #d2d5db;
 }
 </style>';
+  echo '</head>';
+  echo '</body>';
+
   $ini_file = "alert.ini";
-  if (file_exists($ini_file) {
+  if (file_exists($ini_file)) {
     $ini = parse_ini_file($ini_file);
   }
   else {
-    $ini["page_header"]= "";
+    $ini["page_header"]= "SPOTS";
+    $ini["max_lines"] = 20;
   }
-  
 
-  echo '</head>';
-  echo '<body>';
-  echo "<h2>{$page_header}</h2>";
+  echo '<h2>' . $ini["page_header"] . '</h2>';
   $rows = readCSV('spots.csv');
   //printRawTable($rows);
-  printHtmlTable($rows);
+  printHtmlTable($rows, $ini["max_lines"]);
   echo '</body>';
   echo '</html>';
-       
-	
 ?>
