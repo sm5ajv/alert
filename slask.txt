@@ -1,0 +1,5 @@
+This file is only for test of new line trouble.
+123456790
+abcdefghi
+
+---END OF FILE---
