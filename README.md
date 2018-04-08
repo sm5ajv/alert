@@ -4,3 +4,5 @@ This is a simple way of POSTing spots from HamAlert to spots.php.
 The index.php will show the last N spots. The pages does a (stupid) refresh every 10th seconds.
 
 Read more about https://hamalert.org/
+
+You can modify the alert.ini file with your own preferrences.
